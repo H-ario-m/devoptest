@@ -1,28 +1,27 @@
+
+//lets exit the server after 30 seconds 
 pipeline{
     agent any
-    tools{
-        nodejs 'node'
-
-        
-    }
    stages{
     stage('Build'){
         steps{
-            sh 'npm install'
+            bat 'npm install'
             echo 'Build is successful'
         }
    }
    stage('Test'){
     steps{
-        sh 'npm test || echo "No tests defined"'
+        bat 'npm test || echo "No tests defined"'
         echo 'Test is successful'
     }
    }
    stage('Deploy'){
     steps{
-        sh 'npm run build'
+        bat 'npm run start'
         echo 'Deploy is successful'
     }
    }
+
    }
 }
+
