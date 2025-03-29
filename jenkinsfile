@@ -1,7 +1,8 @@
-
-//lets exit the server after 30 seconds 
 pipeline{
     agent any
+    tools{
+        nodejs 'node'
+    }
    stages{
     stage('Build'){
         steps{
@@ -19,6 +20,13 @@ pipeline{
     steps{
         bat 'npm run start'
         echo 'Deploy is successful'
+    }
+   }
+    timeout(time: 30, unit: 'SECONDS'){
+    stage('Exit'){
+        steps{
+            echo 'Server is exiting'
+        }
     }
    }
 
