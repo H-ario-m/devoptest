@@ -1,35 +1,34 @@
-pipeline{
+pipeline {
     agent any
-    tools{
+    tools {
         nodejs 'node'
     }
-   stages{
-    stage('Build'){
-        steps{
-            bat 'npm install'
-            echo 'Build is successful'
+    options {
+        timeout(time: 30, unit: 'SECONDS')
+    }
+    stages {
+        stage('Build') {
+            steps {
+                bat 'npm install'
+                echo 'Build is successful'
+            }
         }
-   }
-   stage('Test'){
-    steps{
-        bat 'npm test || echo "No tests defined"'
-        echo 'Test is successful'
-    }
-   }
-   stage('Deploy'){
-    steps{
-        bat 'npm run start'
-        echo 'Deploy is successful'
-    }
-   }
-    timeout(time: 30, unit: 'SECONDS'){
-    stage('Exit'){
-        steps{
-            echo 'Server is exiting'
+        stage('Test') {
+            steps {
+                bat 'npm test || echo "No tests defined"'
+                echo 'Test is successful'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                bat 'npm run start'
+                echo 'Deploy is successful'
+            }
+        }
+        stage('Exit') {
+            steps {
+                echo 'Server is exiting'
+            }
         }
     }
-   }
-
-   }
 }
-
